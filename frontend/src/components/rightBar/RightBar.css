@@ -1,0 +1,35 @@
+.rightbar{
+    flex: 4;
+    padding: 10px 10px 0 0;
+}
+.RightBirthday span {
+    font-size: 13px;
+}
+
+.RightbarAd img{
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.RightbarFriendsOn {
+    list-style: none !important;
+}
+
+.OnFriendImg img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.OnFriendImg .onStatus {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 2px solid #fff;
+}

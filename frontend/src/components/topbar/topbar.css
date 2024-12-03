@@ -1,0 +1,71 @@
+.topbar {
+    width: 100%;
+    height: 60px;
+    background-color: #1E3E62;
+    color: #ffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.topbarLogo {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.searchBar {
+    background-color: #fff;
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+}
+.searchBar i {
+    color:  #000; 
+    position: absolute;
+    font-size: 20px;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.searchBar input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 4px 35px;
+    width: 100%;
+}
+
+.topbarIcon i {
+    font-size: 20px;
+    cursor: pointer;
+}
+.topbarIconNote {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 13px;
+    width: 20px;
+    height: 20px;
+    z-index: 1;
+    background-color: red ;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profilImg {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.topbarLeft {
+    flex: 2;
+}
+.topbarCenter {
+    flex: 5;
+}
+.topbarRight {
+    flex: 4;
+}

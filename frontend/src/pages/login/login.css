@@ -1,0 +1,21 @@
+.login {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.loginRight form {
+    max-width: 400px;
+    padding: 10px;
+    border-radius: 10px; 
+    background-color: rgb(225, 225, 225);
+}
+.loginRight form input {
+    background-color: transparent;
+    outline: none;
+    border: 1px solid #000;
+    margin: 5px 0;
+    padding: 7px 17px;
+    border-radius: 10px;
+}
