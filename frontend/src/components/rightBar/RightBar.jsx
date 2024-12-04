@@ -4,7 +4,7 @@ import { OnFriendList } from "../FriendList";
 import { Users } from "../../data";
 import ProfileFriendList from "../ProfileFriendList";
 
-export default function RightBar({ profile }) {
+export default function RightBar({ user }) {
   const ToHomePage = () => {
     return (
       <>
@@ -34,15 +34,15 @@ export default function RightBar({ profile }) {
         <ul className="ListInfos list-unstyled">
           <li className="Info mb-2">
             <span className="key fw-medium">City : </span>
-            <span className="Value text-black-50">  Boumerdes</span>
+            <span className="Value text-black-50"> {user.city || "no presise"}</span>
           </li>
           <li className="Info mb-2">
             <span className="key fw-medium">From : </span>
-            <span className="Value text-black-50">  Algeria</span>
+            <span className="Value text-black-50">  {user.from || "no presise"} </span>
           </li>
           <li className="Info mb-2">
             <span className="key fw-medium">Relationship : </span>
-            <span className="Value text-black-50">   Single</span>
+            <span className="Value text-black-50"> {user.relationship === 1 ? "single" : user.relationship === 2 ? "maried" : "-"}</span>
           </li>
         </ul>
 
@@ -61,7 +61,7 @@ export default function RightBar({ profile }) {
   };
   return (
     <div className="rightbar">
-      {profile ? <ToProfilePage/> : <ToHomePage/>}
+      {user ? <ToProfilePage/> : <ToHomePage/>}
     </div>
   );
 }

@@ -43,13 +43,15 @@ router.delete('/:id' , async (req , res)=>{
 });
 
 //get user 
-router.get('/:id' ,async (req , res) =>{
+router.get('/' ,async (req , res) =>{
+    const userId = req.query.userId ; 
+    const username = req.query.username ; // it's mean the url it's gonna be like this >> /user?username=abdelali 
     try {
-        const user = await User.findById(req.params.id);
+        const user = userId ? await User.findById(userId) : await User.findOne({username : username});
         const {pass , updatedAt , ...other} = user._doc ;
-        user ? res.status(200).send(other) : res.status(200).send("user not found !")
+        user ? res.status(200).send(other) : res.status(200).send("user not found !");
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).send(error);
     }
 });
 
