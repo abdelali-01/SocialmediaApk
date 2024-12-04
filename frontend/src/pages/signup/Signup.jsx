@@ -1,5 +1,6 @@
 import React from 'react'
 import './signup.css'
+import { Link } from 'react-router-dom'
 
 export default function Signup() {
   return (
@@ -16,8 +17,9 @@ export default function Signup() {
             <input type="password" placeholder='Confirm your Password' />
             <button className='btn btn-primary mt-3'>Sign up</button>
 
-
-            <button className='btn btn-success w-50 ms-auto me-auto  mt-4'>Log In into Account</button>
+            <Link to="/login">
+                <button className='btn btn-success w-50 ms-auto me-auto  mt-4'>Log In into Account</button>
+            </Link>
         </form>
       </div>
     </div>
