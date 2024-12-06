@@ -1,9 +1,9 @@
 import axios from "axios";
 import "./post.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {format} from "timeago.js"
 import {Link} from "react-router-dom"
-
+import { authContext } from "../../context/authContext";
 
 
 export default function Post({p}) {
@@ -11,6 +11,11 @@ export default function Post({p}) {
   const [isLiked , setIsLiked] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER ;  
   const [user , setUser] = useState({});
+  const {user : currentUser} = useContext(authContext);
+
+  useEffect(()=>{
+    setIsLiked(p.like.includes(currentUser._id));
+  },[p.like , currentUser._id])
 
   useEffect(()=>{
     const fetching = async () => {
@@ -21,6 +26,11 @@ export default function Post({p}) {
   },[p.userId]);
 
   function handleLike(){
+    try {
+      axios.put("/post/"+p._id+"/like" , {userId : currentUser._id})
+    } catch (error) {
+      console.log(error);
+    }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   }
@@ -45,7 +55,7 @@ export default function Post({p}) {
       </div>
       <div className="postCenter mt-3 mb-3">
         <p className="statuPost">{p?.desc}</p>
-        <img src={p?.img} alt="" />
+        <img src={PF+p?.img} alt="" />
       </div>
       <div className="postBottom d-flex align-items-center justify-content-between">
         <div className="LeftButtonPart d-flex align-items-center gap-2">

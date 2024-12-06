@@ -5,17 +5,18 @@ import { Users } from "../../data";
 import ProfileFriendList from "../ProfileFriendList";
 
 export default function RightBar({ user }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER ; 
   const ToHomePage = () => {
     return (
       <>
         <div className="RightBirthday d-flex align-items-center gap-2">
-          <img src="assets/gift.png" alt="" width="50" />
+          <img src={PF+"gift.png"} alt="" width="50" />
           <span>
             <b>Abdelali</b> and <b>3 other friends have a Birthday today .</b>
           </span>
         </div>
         <div className="RightbarAd">
-          <img src="assets/backiee-306017.jpg" alt="" />
+          <img src={PF+"backiee-306017.jpg"} alt="" />
         </div>
         <div className="RightbarFriendsOn">
           <b>Online Friends</b>
