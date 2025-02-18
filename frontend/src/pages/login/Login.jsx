@@ -1,17 +1,20 @@
-import React, { useContext, useRef } from 'react'
+import React, { useRef } from 'react'
 import './login.css'
-import LoginCall from "../../ApiCall" ;
-import { authContext } from '../../context/authContext';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Login as loginUser} from '../../redux/auth/authHandler';
 
 export default function Login() {
   const email = useRef() ; 
   const pass = useRef();
-  const {user , isFetching , error ,dispatch} = useContext(authContext)
+  // const {user , isFetching , error ,dispatch} = useContext(authContext)
+  const {isFetching , error } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  
   
   function handleClick(e){
     e.preventDefault()    
-    LoginCall({email : email.current.value , pass : pass.current.value} , dispatch)
+    dispatch(loginUser({email : email.current.value , pass : pass.current.value}));
   }
   
   return (

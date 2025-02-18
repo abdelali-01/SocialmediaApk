@@ -2,12 +2,21 @@ import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import { Routes , Route, Navigate } from "react-router-dom"
-import { useContext } from "react";
-import { authContext } from "./context/authContext";
+import { Routes , Route, Navigate, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
-  const {user} = useContext(authContext); 
+  const {user} = useSelector(state => state.auth);
+    
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!user){
+      navigate("/login");
+    }
+  },[user , navigate]);
+
   return (
         <Routes>
           <Route exact path="/" element={user ? <Home/> : <Signup/>}/>

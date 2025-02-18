@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import "./topbar.css";
 import {Link} from "react-router-dom" ;
-import { authContext } from "../../context/authContext";
+import { useSelector } from "react-redux";
 
 const imageUrl = `${process.env.REACT_APP_PUBLIC_FOLDER}gift.png`;
 console.log(imageUrl);
 
 export default function Topbar() {
-  const {user} = useContext(authContext)
+  const {user} = useSelector(state => state.auth);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER ; 
   return (
     <nav className="topbar d-flex align-items-center ps-5 pe-3">

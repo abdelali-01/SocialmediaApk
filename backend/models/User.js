@@ -1,59 +1,72 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      require: true,
+      min: 6,
+      max: 20,
+      unique: true,
+    },
+    email: {
+      type: String,
+      require: true,
+    },
+    pass: {
+      type: String,
+      min: 6,
+    },
+    profilPic: {
+      type: String,
+      default: "",
+    },
+    coverPic: {
+      type: String,
+      default: "",
+    },
+    followers: {
+      type: Array,
+      default: [],
+    },
+    following: {
+      type: Array,
+      default: [],
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    bio: {
+      type: String,
+      max: 100,
+    },
+    city: {
+      type: String,
+      max: 40,
+    },
+    from: {
+      type: String,
+      max: 40,
+    },
+    relationship: {
+      type: String,
+      enum: [1, 2, 3],
+    },
 
-    username : {
-        type : String ,
-        require : true ,
-        min : 6 ,
-        max :20 ,
-        unique : true 
+    otp: {
+      type: String,
     },
-    email : {
-        type :String ,
-        require : true ,
-        unique : true
+    otpExpires: {
+      type: Date,
     },
-    pass : {
-        type : String ,
-        min : 6
+    verified: {
+      type: Boolean,
+      default: false,
     },
-    profilPic : {
-        type : String ,
-        default : ''
-    },
-    coverPic : {
-        type : String ,
-        default : ''
-    },
-    followers : {
-        type : Array ,
-        default : []
-    },
-    following : {
-        type : Array ,
-        default : []
-    },
-    isAdmin : {
-        type : Boolean ,
-        default : false
-    },
-    bio : {
-        type : String ,
-        max : 100 
-    },
-    city : {
-        type : String ,
-        max : 40
-    },
-    from : {
-        type : String ,
-        max : 40
-    },
-    relationship : {
-        type : String ,
-        enum : [1,2,3]
-    }
-} , {timestamps : true}); 
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('User' , UserSchema);
+const User = mongoose.model("User", UserSchema);
+export default User ;

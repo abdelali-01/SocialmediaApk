@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import Post from "../models/Post.js";
+import User from "../models/User.js";
+
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const User = require("../models/User");
 
 // update profile
 router.put('/:id' ,async (req,res)=>{
@@ -103,4 +104,4 @@ router.put('/:id/unfollow' ,async (req ,res)=>{
     }
 });
 
-module.exports = router ;
+export default router ;

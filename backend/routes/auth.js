@@ -1,39 +1,22 @@
-const express = require("express");
+import express from "express";
+import User from "../models/User.js";
+import bcrypt from "bcrypt";
+import authController from "../controllers/authController.js";
+import "../stratigies/local.js";
+import passport from "passport";
+
 const router = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
 
-router.post('/signup',async (req , res) => {
-  try{
-    data = req.body
+// Signup route
+router.route("/signup").post(authController.signup); // Pass the function reference to handle POST requests
 
-    let salt = await bcrypt.genSalt(10);
-    let cryptedPass = await bcrypt.hash(data.pass , salt);
-    data.pass = cryptedPass ;
-    usr = new User(data);
-    let Saving = await usr.save();
-    res.send(Saving);
 
-  }catch(err){
-    console.log(err)
-  }
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  req.authInfo.message
+    ? res.status(200).send(req.authInfo.message)
+    : res.status(200).send(req.user);
 });
 
-router.post('/login' ,async (req , res) =>{
-  try {
-    const user = await User.findOne({email : req.body.email});
-    !user && res.status(404).send('Your Email or Password Incorrect !');
+router.put('/verify' , authController.userVerification);
 
-    const ValidPass = await bcrypt.compare(req.body.pass , user.pass);
-    !ValidPass && res.status(404).send('Your Email or Password Incorrect !');
-
-    res.status(200).send(user)
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-
-
-
-module.exports = router;
+export default router;

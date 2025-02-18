@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./feed.css";
 import Share from "../share/Share";
 import Post from "../post/Post";
 import { useEffect } from "react";
 import axios from "axios";
-import { authContext } from "../../context/authContext";
+import { useSelector } from "react-redux";
 
 export default function Feed({ username }) {
   const [posts, setPosts] = useState([]);
-  const {user} = useContext(authContext)
- 
+  const {user} = useSelector(state => state.auth);
+  
   useEffect(() => {
     const fetching = async () => {
       const res = username

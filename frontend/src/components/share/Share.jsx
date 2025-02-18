@@ -1,11 +1,11 @@
-import React, { useContext, useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import "./share.css";
-import { authContext } from "../../context/authContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export default function Share() {
-  const  { user} = useContext(authContext)
+  const  { user} = useSelector(state => state.auth);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER ;
   const desc = useRef();
   const [file,setFile] = useState(null);

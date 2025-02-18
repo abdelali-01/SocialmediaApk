@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import Post from "../models/Post.js";
+import User from "../models/User.js";
+
 const router = express.Router();
-const Post = require("../models/Post");
-const User = require("../models/User")
 
 // create post
 router.post("/", async (req, res) => {
@@ -102,4 +103,4 @@ router.get("/profile/:username" ,async (req , res)=>{
   }
 })
 
-module.exports = router;
+export default router;
