@@ -28,7 +28,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/social").then(() => {
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
-app.use(cors());
+app.use(cors({origin : "http://localhost:3000" ,credentials : true}));
 
 app.use(cookieParser());
 app.use(
@@ -38,7 +38,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
-      secure: false,
+      secure:  process.env.NODE_ENV === 'production',
       httpOnly: true,
       // sameSite : "none" // >>> work just with true secure
     },
@@ -77,11 +77,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use(
   "/images",
-  // (req, res, next) => {
-  //   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
-  //   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-  //   next();
-  // },
+  (req, res, next) => {
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    next();
+  },
   express.static(path.join(__dirname, "public/images"))
 );
 

@@ -7,16 +7,17 @@ import passport from "passport";
 
 const router = express.Router();
 
+
+
 // Signup route
 router.route("/signup").post(authController.signup); // Pass the function reference to handle POST requests
 
-
 router.post("/login", passport.authenticate("local"), (req, res) => {
   req.authInfo.message
-    ? res.status(200).send(req.authInfo.message)
+    ? res.status(200).send(req.authInfo)
     : res.status(200).send(req.user);
 });
 
-router.put('/verify' , authController.userVerification);
+router.post("/verify", authController.userVerification);
 
 export default router;

@@ -5,19 +5,8 @@ import bcrypt from "bcrypt";
 import { optGenerator } from "../utils/otp.js";
 import emailVerificationSender from "../utils/Transporter.js";
 
-passport.serializeUser((user, done) => done(null, user._id));
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const findUser = await User.findById(id);
-    if (!findUser) throw new Error("user not found !");
-
-    done(null, findUser);
-  } catch (error) {
-    console.error("error durign deserialize user ", error);
-    done(error, null);
-  }
-});
+// import the config file for serilize and deserilize the user 
+import './passportConfig.js';
 
 passport.use(
   new LocalStrategy(
@@ -43,11 +32,13 @@ passport.use(
           try {
             await emailVerificationSender(user.email, user.otp);
             done(null, user, {
+              status : "not verified" ,
               message: "your Email is not verified , please check your email !",
             });
           } catch (emailError) {
             console.error("Email sending failed:", emailError);
             return done(emailError, null, {
+              status : "faild" ,
               message:
                 "User created, but email could not be sent. Try again later.",
             });

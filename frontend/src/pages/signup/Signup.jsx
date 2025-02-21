@@ -1,33 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './signup.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
 import axios from 'axios';
+import {useDispatch, useSelector} from "react-redux";
+import { Signup as SignupReq } from '../../redux/auth/authHandler';
 
 export default function Signup() {
-  const email = useRef();
-  const username = useRef();
-  const pass = useRef();
-  const passConfig = useRef();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {isFetching} = useSelector(state => state.auth);
+
+  // setup the form state for user registration
+  const [registrationForm , setRegistrationForm] = useState({
+    username : "" ,
+    email : "" ,
+    pass : "" ,
+    passConfig : ""
+  });
+  // set the function that update the inputs
+  const formHandler = (e)=>{
+    setRegistrationForm({...registrationForm , [e.target.name] : e.target.value})
+  }
+
 
   async function handlClick(e){
     e.preventDefault();
 
-    if(passConfig.current.value !== pass.current.value){
-      passConfig.current.setCustomValidity("Password don't match ")
+    if(registrationForm.passConfig !== registrationForm.pass){
+      alert('passwords doesn`t match !')
     }else{
       const user = {
-        username : username.current.value ,
-        email : email.current.value ,
-        pass : pass.current.value
+        username : registrationForm.username ,
+        email : registrationForm.email ,
+        pass : registrationForm.pass
       }
-      try {
-        await axios.post("/auth/signup" , user);
-        navigate("/login")
-      } catch (error) {
-        console.log(error);
-      }
+      dispatch(SignupReq(user , navigate))
     }
   }
 
@@ -39,10 +47,10 @@ export default function Signup() {
       </div>
       <div className="loginRight w-50">
         <form action="" className='d-flex flex-column text-center' onSubmit={handlClick}>
-            <input required ref={username} type="text" placeholder='Username' />
-            <input required ref={email} type="email" placeholder='Email' />
-            <input minLength={8} required ref={pass} type="password" placeholder='Password' />
-            <input required ref={passConfig} type="password" placeholder='Confirm your Password' />
+            <input required value={registrationForm.username} name='username' type="text" placeholder='Username' onChange={formHandler}/>
+            <input required value={registrationForm.email} name='email' type="email" placeholder='Email' onChange={formHandler}/>
+            <input minLength={8} required value={registrationForm.pass} name='pass' type="password" placeholder='Password' onChange={formHandler}/>
+            <input required value={registrationForm.passConfig} name='passConfig' type="password" placeholder='Confirm your Password' onChange={formHandler}/>
             <button className='btn btn-primary mt-3'>Sign up</button>
 
             <Link to="/login">

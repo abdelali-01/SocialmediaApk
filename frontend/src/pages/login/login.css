@@ -9,7 +9,7 @@
     max-width: 400px;
     padding: 10px;
     border-radius: 10px; 
-    background-color: rgb(225, 225, 225);
+    background-color: #e1e1e1;
 }
 .loginRight form input {
     background-color: transparent;

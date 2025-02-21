@@ -43,7 +43,8 @@ const signup = async (req, res) => {
 
 const userVerification = async (req , res) => {
   const {otp} = req.body ;
-  const userId = req.session.passport.user ;
+  const userId = req.session?.passport?.user ;
+  
   if(!userId) return res.status(401).send('You Have to Login !');
 
   try {
@@ -61,6 +62,6 @@ const userVerification = async (req , res) => {
     console.error('error during verify the user ' , error);
     res.sendStatus(400);
   }
-}
+};
 
 export default { signup , userVerification};

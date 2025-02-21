@@ -1,29 +1,40 @@
-import {createSlice} from '@reduxjs/toolkit' ;
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user : JSON.parse(localStorage.getItem("user")) || null,
-    isFetching : false ,
-    error :false ,
-}
+  user: null,
+  isFetching: false,
+  error: null,
+  response : null 
+};
 
 const authSlice = createSlice({
-    name : "user" ,
-    initialState ,
+  name: "user",
+  initialState,
 
-    reducers : {
-        authRequest : (state)=>{
-            state.isFetching = true ;
-        },
-        authLogin : (state , response) =>{
-            state.user = response ;
-            localStorage.setItem("user" , JSON.stringify(response.payload));
-        },
-        authError : (state)=>{
-            state.error = true ;
-        }
-    }
+  reducers: {
+    authCheck: (state, response) => {
+      if (response) {
+        state.user = response.payload;
+      }
+    },
+    authRequest: (state) => {
+      state.isFetching = true;
+    },
+    authLogin: (state, response) => {
+      state.user = response.payload;
+    },
+    authError: (state , error) => {
+      state.error = error.payload;
+    },
+    authResponse : (state , response) =>{
+        state.response = response.payload ;
+    },
+    resetResponse : (state)=>{
+        state.response = null ;
+    },
+  },
 });
 
-
-export const {authRequest , authLogin , authError} = authSlice.actions ;
-export const authReducer = authSlice.reducer ;
+export const { authRequest, authLogin, authError, authCheck  , authResponse , resetResponse} =
+  authSlice.actions;
+export const authReducer = authSlice.reducer;
